@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Site de Teste GTM</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    header, footer { background-color: #333; color: #fff; padding: 1rem; text-align: center; }
+    main { padding: 2rem; }
+    section { margin-bottom: 2rem; }
+    .product { border: 1px solid #ccc; padding: 1rem; margin: 1rem 0; }
+    .product button { background-color: green; color: #fff; padding: 0.5rem 1rem; border: none; cursor: pointer; }
+    form { display: flex; flex-direction: column; max-width: 400px; }
+    form input, form textarea, form button { margin-bottom: 1rem; padding: 0.5rem; }
+    nav a { margin: 0 1rem; color: white; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Loja de Teste</h1>
+    <nav>
+      <a href="#produtos">Produtos</a>
+      <a href="#contato">Contato</a>
+      <a href="#cadastro">Cadastro</a>
+    </nav>
+  </header>
+  <main>
+    <section id="produtos">
+      <h2>Produtos</h2>
+      <div class="product" data-id="1">
+        <h3>Produto A</h3>
+        <p>Descrição do produto A.</p>
+        <p>Preço: R$ 100,00</p>
+        <button onclick="adicionarAoCarrinho('Produto A', 100)">Comprar</button>
+      </div>
+      <div class="product" data-id="2">
+        <h3>Produto B</h3>
+        <p>Descrição do produto B.</p>
+        <p>Preço: R$ 200,00</p>
+        <button onclick="adicionarAoCarrinho('Produto B', 200)">Comprar</button>
+      </div>
+    </section>
+
+    <section id="contato">
+      <h2>Formulário de Contato</h2>
+      <form onsubmit="enviarContato(event)">
+        <input type="text" name="nome" placeholder="Seu nome" required />
+        <input type="email" name="email" placeholder="Seu email" required />
+        <textarea name="mensagem" placeholder="Sua mensagem" required></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
+
+    <section id="cadastro">
+      <h2>Cadastro de Usuário</h2>
+      <form onsubmit="cadastrarUsuario(event)">
+        <input type="text" name="nome" placeholder="Nome completo" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="password" name="senha" placeholder="Senha" required />
+        <button type="submit">Cadastrar</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Loja de Teste</p>
+  </footer>
+
+  <script>
+    function adicionarAoCarrinho(produto, preco) {
+      console.log("Produto adicionado ao carrinho:", produto, preco);
+      // Aqui pode disparar evento para o GTM
+      dataLayer.push({
+        event: "add_to_cart",
+        ecommerce: {
+          items: [
+            {
+              item_name: produto,
+              price: preco,
+              quantity: 1
+            }
+          ]
+        }
+      });
+    }
+
+    function enviarContato(event) {
+      event.preventDefault();
+      const form = event.target;
+      const nome = form.nome.value;
+      const email = form.email.value;
+      const mensagem = form.mensagem.value;
+      console.log("Formulário de contato enviado:", nome, email, mensagem);
+      dataLayer.push({
+        event: "form_submit",
+        form_type: "contato",
+        nome,
+        email,
+        mensagem
+      });
+      form.reset();
+    }
+
+    function cadastrarUsuario(event) {
+      event.preventDefault();
+      const form = event.target;
+      const nome = form.nome.value;
+      const email = form.email.value;
+      console.log("Usuário cadastrado:", nome, email);
+      dataLayer.push({
+        event: "user_register",
+        nome,
+        email
+      });
+      form.reset();
+    }
+
+    // Inicializar o dataLayer
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({
+      event: "pageview"
+    });
+  </script>
+</body>
+</html>
