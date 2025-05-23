@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start': new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+  })(window, document, 'script', 'dataLayer', 'GTM-N56D8F3J');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contato</title>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N56D8F3J" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <header>
+   <nav>
+     <a href="index.html">Início</a>
+     <a href="contato.html">Contato</a>
+     <a href="carrinho.html">Carrinho</a>
+     <a href="checkout.html">Checkout</a>
+   </nav>
+ </header>
+  <h1>Formulário de Contato</h1>
+  <form onsubmit="enviarContato(event)">
+    <input type="text" id="nome_contato" name="nome" placeholder="Seu nome" required />
+    <input type="email" id="email_contato" name="email" placeholder="Seu email" required />
+    <input type="text" id="phone_contato" name="phone" placeholder="Seu telefone" required />
+    <textarea id="mensagem_contato" name="mensagem" placeholder="Sua mensagem" required></textarea>
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({ event: "pageview" });
+
+    function enviarContato(event) {
+      event.preventDefault();
+      const form = event.target;
+      const nome = form.nome.value;
+      const email = form.email.value;
+      const mensagem = form.mensagem.value;
+      dataLayer.push({
+        event: "form_submit",
+        form_type: "contato",
+        nome,
+        email,
+        mensagem
+      });
+      form.reset();
+    }
+  </script>
+</body>
+
+</html>
